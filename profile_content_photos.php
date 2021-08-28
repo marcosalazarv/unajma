@@ -18,6 +18,10 @@
 			}
 
 		}
+		else{
+
+			echo "No images were found!";
+		}
 	?>
 
 	</div>
