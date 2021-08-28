@@ -8,4 +8,28 @@
 	$gender = "";
 	$email = "";
 
+	if($_SERVER['REQUEST_METHOD'] == 'POST')
+	{
+
+
+		$signup = new Signup();
+		$result = $signup->evaluate($_POST);
+		
+		if($result != "")
+		{
+
+			echo "<div style='text-align:center;font-size:12px;color:white;background-color:grey;'>";
+			echo "<br>The following errors occured:<br><br>";
+			echo $result;
+			echo "</div>";
+		}else
+		{
+
+			header("Location: login.php");
+			die;
+		}
+
+		
+ 
+	}
 ?>
