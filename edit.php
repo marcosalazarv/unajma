@@ -35,5 +35,23 @@
 		 	}
 		 }
 
+	}else{
+
+		$ERROR = "No such post was found!";
+	}
+
+	if(isset($_SERVER['HTTP_REFERER']) && !strstr($_SERVER['HTTP_REFERER'], "edit.php")){
+
+		$_SESSION['return_to'] = $_SERVER['HTTP_REFERER'];
+	}
+
+	//if something was posted
+	if($_SERVER['REQUEST_METHOD'] == "POST"){
+
+		$Post->edit_post($_POST,$_FILES);
+
+
+		header("Location: ".$_SESSION['return_to']);
+		die;
 	}
 ?>
