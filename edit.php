@@ -16,4 +16,24 @@
 	 	}
 
  	}
+
+ 	$Post = new Post();
+
+	$ERROR = "";
+	if(isset($_GET['id'])){
+
+		 $ROW = $Post->get_one_post($_GET['id']);
+
+		 if(!$ROW){
+
+		 	$ERROR = "No such post was found!";
+		 }else{
+
+		 	if($ROW['userid'] != $_SESSION['mybook_userid']){
+
+		 		$ERROR = "Accesss denied! you cant delete this file!";
+		 	}
+		 }
+
+	}
 ?>
