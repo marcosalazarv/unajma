@@ -1,7 +1,7 @@
 <?php 
 
 	include("classes/autoload.php");
-
+ 
 	$login = new Login();
 	$user_data = $login->check_login($_SESSION['mybook_userid']);
  
@@ -17,51 +17,26 @@
 	 	}
 
  	}
+ 	
 	
 	$Post = new Post();
+	$ROW = false;
 
 	$ERROR = "";
 	if(isset($_GET['id'])){
 
-		 $ROW = $Post->get_one_post($_GET['id']);
-
-		 if(!$ROW){
-
-		 	$ERROR = "No such post was found!";
-		 }else{
-
-		 	if($ROW['userid'] != $_SESSION['mybook_userid']){
-
-		 		$ERROR = "Accesss denied! you cant delete this file!";
-		 	}
-		 }
-
+		$ROW = $Post->get_one_post($_GET['id']);
 	}else{
 
-		$ERROR = "No such post was found!";
+		$ERROR = "No image was found!";
 	}
-
-	if(isset($_SERVER['HTTP_REFERER']) && !strstr($_SERVER['HTTP_REFERER'], "edit.php")){
-
-		$_SESSION['return_to'] = $_SERVER['HTTP_REFERER'];
-	}
-
-	//if something was posted
-	if($_SERVER['REQUEST_METHOD'] == "POST"){
-
-		$Post->edit_post($_POST,$_FILES);
-
-
-		header("Location: ".$_SESSION['return_to']);
-		die;
-	}
-
+ 
 ?>
 
 <!DOCTYPE html>
 	<html>
 	<head>
-		<title>Delete | Mybook</title>
+		<title>Single Post | Mybook</title>
 	</head>
 
 	<style type="text/css">
@@ -183,37 +158,19 @@
  					
  					<div style="border:solid thin #aaa; padding: 10px;background-color: white;">
 
-  						<form method="post" enctype="multipart/form-data">
- 							
-  								<?php
+  					 <?php 
 
- 									if($ERROR != ""){
+  					 		$user = new User();
+  					 		$image_class = new Image();
 
-								 		echo $ERROR;
-								 	}else{
+  					 		if(is_array($ROW)){
 
-	  									echo "Edit Post<br><br>";
- 										
- 										echo '<textarea name="post" placeholder="Whats on your mind?">'.$ROW['post'].'</textarea>
-	 											<input type="file" name="file">';
+								echo "<img src='$ROW[image]' style='width:100%;' />";  					 			
+  					 		}
 
-	  									echo "<input type='hidden' name='postid' value='$ROW[postid]'>";
-	 									echo "<input id='post_button' type='submit' value='Save'>";
+  					 ?>
 
-	 									if(file_exists($ROW['image']))
-										{
-											$image_class = new Image();
-											$post_image = $image_class->get_thumb_post($ROW['image']);
-
-											echo "<br><br><div style='text-align:center;'><img src='$post_image' style='width:50%;' /></div>";
-										}
-
- 									}
- 								?>
-  							
-	 						
-	 						<br>
- 						</form>
+  					 <br style="clear: both;">
  					</div>
   
 
