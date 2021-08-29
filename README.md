@@ -20,6 +20,8 @@ En esta lsita de documentación se procede a modelar una red social donde hace l
 8. Encontramos el item de "Following" donde amacerán todas las personas que ese perfil siga 
 9. Obviamente que la página principal hay un botón para poder seguir a cualquier perfil 
 10. En la parte de arriba podrá buscar a las personas para poder seguir y poder iteraccionar con otras personas.
+11. para mejor comprensión se deja un vide explicativo sobre el proyecto
+LINK: https://github.com/marcosalazarv/unajma/issues/1#issue-982134414
 
 ---------------Para la realización de este proyecto se usó las siguientes fuentes de información---------------
 
